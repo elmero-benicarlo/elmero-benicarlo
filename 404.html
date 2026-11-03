@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Página no encontrada — Club El Mero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#00172e;--navy2:#00264a;--gold:#c8952a;--gold2:#e8b84b;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  color:#fff;text-align:center;padding:24px;
+  overflow:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(200,149,42,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.logo{
+  width:90px;height:90px;object-fit:contain;
+  filter:drop-shadow(0 0 24px rgba(200,149,42,.4));
+  margin-bottom:28px;
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.code{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(5rem,15vw,8rem);font-weight:900;
+  color:transparent;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;background-clip:text;
+  line-height:1;margin-bottom:16px;
+}
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.2rem,4vw,1.8rem);
+  color:rgba(255,255,255,.9);margin-bottom:12px;
+}
+p{color:rgba(255,255,255,.5);font-size:.95rem;margin-bottom:36px;max-width:400px;}
+.btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.btn{
+  padding:13px 28px;border-radius:12px;
+  text-decoration:none;font-weight:600;font-size:.9rem;
+  transition:all .2s;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--navy);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,149,42,.4);}
+.btn-ghost{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.7);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff;}
+.fish{
+  position:fixed;bottom:-20px;
+  font-size:3rem;opacity:.06;
+  animation:swimAcross 18s linear infinite;
+}
+@keyframes swimAcross{from{left:-80px;}to{left:calc(100vw + 80px);}}
+</style>
+</head>
+<body>
+<img id="logo-img" class="logo" alt="Club El Mero">
+<div class="code">404</div>
+<h1>Esta página no existe</h1>
+<p>Parece que el anzuelo no enganchó nada por aquí. Vuelve al inicio.</p>
+<div class="btns">
+  <a href="/" class="btn btn-primary">Ir al inicio</a>
+  <a href="/app" class="btn btn-ghost">Acceso Junta</a>
+</div>
+<div class="fish">🐟</div>
+<script>
+// Inject logo — same base64 as other pages, loaded from session storage for speed
+(function(){
+  try{
+    const cached = sessionStorage.getItem('elmero_logo');
+    if(cached){
+      document.getElementById('logo-img').src=cached;
+      return;
+    }
+  }catch(e){}
+  // Fallback: fetch logo from index page's inline script tag is not available here,
+  // so we just show the fish emoji fallback
+  document.getElementById('logo-img').style.display='none';
+  const fishEl=document.createElement('div');
+  fishEl.textContent='🐟';
+  fishEl.style.cssText='font-size:5rem;margin-bottom:28px;animation:float 3s ease-in-out infinite;display:block;';
+  document.getElementById('logo-img').parentNode.insertBefore(fishEl,document.getElementById('logo-img').nextSibling);
+})();
+</script>
+</body>
+</html>
